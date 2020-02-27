@@ -1,0 +1,14 @@
+# Export TMX test
+---
+- config:
+    - testset: "ElasticTM API export TMX"
+# Include authentication step (using custom PyYAML loader), provides $token
+- test: !include auth.yml
+- test:
+    - name: "Export TMX file"
+    - variable_binds:
+       - params: 'slang=en&tlang=es&domain=test'
+
+    - url: {template : "/api/v1/tm/export?$params"}
+    - headers: {template: {Authorization: 'JWT $token'}}
+    - expected_status: [200]

@@ -1,0 +1,22 @@
+pos_tags.txt
+	input file for training neural networks
+	each odd line is a source sentence
+	each even line is a target sentence
+
+xml2parse.perl < pos_tags.txt > pos_tags.txt.tmp
+	conver from xml format to syntax format
+
+pos_tags.txt.tmp --> pos_tags.tree
+	join every two lines seperated by " ||| "
+
+parse.py < pos_tags.tree > pos_tags.bio
+	create training data for sequence labelling
+	each instance contains only one pair of tags
+
+sort, uniq, shuf pos_tags.bio > pos_tags.bio.unique
+
+prepare_data.ipynb
+	a python notebook which reads pos_tags.bio.unique
+	generate files: 
+		postag.bio.pkl, training data
+		 

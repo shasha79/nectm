@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tmx version="1.4">
+<header creationtool="TAUS Data Association"
+        creationtoolversion="3"
+        segtype="sentence"
+        o-tmf="various"
+        adminlang="en-US"
+        srclang="en-GB"
+        datatype="PlainText"
+        creationdate="20120216T102714Z" />
+<body>
+<tu changedate="20111012T003107Z" creationdate="20111012T003107Z" creationid="AZerfass" changeid="AZerfass">
+    <prop type="client">autoparts</prop>
+    <prop type="project">1-2-3-4-5</prop>
+    <prop type="domain">automotive-aeronautics</prop>
+    <prop type="subject">spare parts</prop>
+    <prop type="corrected">no</prop>
+    <prop type="aligned">no</prop>
+    <prop type="x-document">Demo 1</prop>
+    <prop type="x-reviewer">rev1</prop>
+    <prop type="x-internal id">44567</prop>
+    <prop type="x-date of review">20111012T003000Z</prop>
+    <prop type="x-doc type">broschure</prop>
+    <prop type="x-model">model 1</prop>
+    <prop type="x-model">model 5</prop>
+    <tuv xml:lang="en">
+        <prop type="x-context-pre">&lt;seg&gt;Dies ist ein neuer Satz.&lt;/seg&gt;</prop>
+        <prop type="x-context-post">&lt;seg&gt;Dies ist ein kurzer wunderschöner Satz.&lt;/seg&gt;</prop>
+        <seg>This is a short, new sentence.</seg>
+    </tuv>
+    <tuv xml:lang="de">
+        <seg>Dies ist ein kurzer neuer Satz.</seg>
+    </tuv>
+</tu>
+<tu changedate="20111012T003107Z" creationdate="20111012T003107Z" creationid="AZerfass" changeid="AZerfass">
+    <prop type="client">autoparts</prop>
+    <prop type="project">1-2-3-4-5</prop>
+    <prop type="domain">automotive-aeronautics</prop>
+    <prop type="subject">spare parts</prop>
+    <prop type="corrected">no</prop>
+    <prop type="aligned">no</prop>
+    <prop type="x-document">Demo 1</prop>
+    <prop type="x-reviewer">rev1</prop>
+    <prop type="x-internal id">44567</prop>
+    <prop type="x-date of review">20111012T003000Z</prop>
+    <prop type="x-doc type">broschure</prop>
+    <prop type="x-model">model 1</prop>
+    <prop type="x-model">model 5</prop>
+    <tuv xml:lang="en">
+        <prop type="x-context-pre">kuku1</prop>
+        <prop type="x-context-post">kuku2</prop>
+        <seg>This is a short, new sentence.</seg>
+    </tuv>
+    <tuv xml:lang="de">
+        <seg>Dies ist ein kurzer neuer Satz.</seg>
+    </tuv>
+</tu>
+</body>
+</tmx>
+

@@ -1,0 +1,60 @@
+<!-- Modal -->
+<div id="tag_modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Edit Tag</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal">
+        <fieldset>
+
+        <!-- Text input-->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="tag_id">Id</label>
+          <div class="col-md-4">
+          <input id="tag_id" name="tag_id" type="text" placeholder="tag_id" class="form-control input-md" required="true">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="tag_name">Name</label>
+          <div class="col-md-4">
+          <input id="tag_name" name="tag_name" type="text" placeholder="tag_name" class="form-control input-md" required="true">
+          </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="type">Type</label>
+          <div class="col-md-4">
+            <select class="form-control" id="type">
+              <option>public</option>
+              <option>private</option>
+              <option>unspecified</option>
+            </select>
+          </div>
+        </div>
+
+        </fieldset>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <!-- Button (Double) -->
+        <div class="form-group">
+          <div class="col-md-8">
+            <button id="save_tag_btn" name="save_tag_btn" class="btn btn-success" data-dismiss="modal">Save</button>
+            <button id="delete_tag_btn" name="delete_tag_btn" class="btn btn-warning">Delete</button>
+            <button id="cancel_tag_btn" name="cancel_tag_btn" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</div>
+

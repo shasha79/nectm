@@ -1,0 +1,348 @@
+            {% import 'filters.html' as filters %}
+            {% import 'languages.html' as languages %}
+            {% import 'query.html' as query %}
+
+            <div class="row" id="tm_row">
+                  <div class="col-lg-12 col-md-12">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a id="query_tab" href="#query" data-toggle="tab">Query</a>
+                            </li>
+                            <li><a id="import_tab" href="#import" data-toggle="tab">Import</a>
+                            </li>
+                            <li class=""><a id="export_tab" href="#export" data-toggle="tab">Export</a>
+                            </li>
+                            <li class=""><a id="generate_tab" href="#generate" data-toggle="tab">Generate</a>
+                            </li>
+                            <li class=""><a id="delete_tab" href="#delete" data-toggle="tab">Delete</a>
+                            </li>
+                            <li class=""><a id="maintain_tab" href="#maintain" data-toggle="tab">Maintain</a>
+                            </li>
+                            <li class=""><a id="tags_tab" href="#tags" data-toggle="tab">Tags</a>
+                            </li>
+                            <li class=""><a id="stats_tab" href="#stats" data-toggle="tab">Stats</a>
+                            </li>
+
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane fade active in" id="query">
+                                <h4>Query TM</h4>
+                                <div class="input-group col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                    <input id="input_query" type="text" class="form-control" placeholder="TM to translate" required/>
+                                </div>
+                                 <div class="row">
+                                     {{ languages.languages('query',langs) }}
+                                </div>
+                                <hr/>
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                    {{ query.query('query_options') }}
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                    {{ filters.filters('query', str_filters, date_filters, num_filters) }}
+                                </div>
+                                <span>
+                                    <a href="#" id="query_btn" class="btn btn-primary">Query</a>
+                                </span>
+                                <br><hr>
+                                <h4>Results</h4>
+                                <div id="query_results" class="panel panel-primary col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                    <table id="query_results_table" class="table">
+                                        <thead>
+                                            <th>Match</th>
+                                            <th>Source</th>
+                                            <th>Target</th>
+                                            <th>Tags</th>
+                                            <th>Username</th>
+                                            <th>File names</th>
+                                            <th>Update date</th>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane fade" id="import">
+                                <h4>Import TMX file</h4>
+                                <form id="upload-file-form" method="put" enctype="multipart/form-data">
+                                  <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+
+                                    <div class="input-group">
+                                        <input id="file_field" type="file" class="form-control" placeholder="TMX file" required/>
+                                    </div>
+                                    <hr/>
+                                    <div >
+                                        <h5>Tags</h5>
+                                        <select multiple id="domain_tags" type="text" class="form-control" required>
+                                        </select>
+                                        <br>
+
+                                    </div>
+                                      <hr/>
+
+                                    <div class="form-group" style="display:none;">
+                                        <input type="checkbox" style="display:inline"   />
+                                        <span style="display:inline">Import to PangeaMT</span>
+                                    </div>
+
+                                        <span class="input-group-btn">
+                                          <a href="#" id="import_btn" class="btn btn-primary" disabled="disabled">Import</a>
+                                        </span>
+                                    <div id="import_job_details" ></div>
+                                      <div class="progress progress-striped" style="display:none;">
+                                        <div id="import_progressbar" class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100">
+                                        </div>
+                                      </div>
+                                  </div>
+                                </form>
+                            </div>
+                            <div class="tab-pane fade" id="export">
+                                <h4>Export to TMX file(s)</h4>
+                                 <div class="row">
+                                     {{ languages.languages('export',langs) }}
+                                </div>
+                                <hr/>
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                    {{ filters.filters('export', str_filters, date_filters, num_filters, query_filters) }}
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    <a href="#" id="export_btn" class="btn btn-primary">Export</a>
+                                </div>
+                                <br>
+                                <hr/>
+                                <h4>Manage Exports</h4>
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <table id="export_table" data-toggle="table"
+                                           data-sort-name="export_time"
+                                           data-sort-order="desc"
+                                           data-pagination="true">
+                                        <thead>
+                                        <tr>
+                                            <th data-field="delete"></th>
+                                            {% for header in export_headers %}
+                                            <th data-field="{{header}}"
+                                                data-sortable="true"
+                                                >
+                                                    {{ header | upper }}
+                                            </th>
+                                            {% endfor %}
+                                        </tr>
+                                        </thead>
+                                     </table>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="generate">
+                                 <h4>Generate language pair</h4>
+                                 <div class="row">
+                                     {{ languages.languages('gen',langs) }}
+                                 </div>
+                                 <div class="row">
+                                    <hr/>
+                                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                      <label for="gen_pivot_lang">Pivot language</label>
+                                      <select class="form-control" id="gen_pivot_lang">
+                                            <option>Automatic</option>
+                                          {% for lang in langs %}
+                                            <option>{{lang | upper}}</option>
+                                          {% endfor %}
+                                      </select>
+                                    </div>
+                                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                        <h5>Tags</h5>
+                                        <input id="gen_domain_tags" type="text" class="form-control"  data-role="tagsinput" required/>
+
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 form-group">
+                                        <input id="gen_force" type="checkbox" style="display:inline"   />
+                                        <span style="display:inline">Force generation</span>
+                                    </div>
+                                </div>
+                                <hr/>
+                                 <div class="row">
+                                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 center-block">
+                                        <a href="#" id="generate_btn" class="btn btn-primary center-block">Generate</a>
+                                        </div>
+                                      </div>
+                                 </div>
+                            <div class="tab-pane fade" id="delete">
+                                <h4>Delete</h4>
+                                <div class="row">
+                                     {{ languages.languages('delete',langs) }}
+                                </div>
+                                <hr/>
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                    {{ filters.filters('delete', str_filters, date_filters, num_filters, query_filters) }}
+                                </div>
+                                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                        <a href="#" id="delete_btn" class="btn btn-primary">Delete</a>
+                                        </div>
+
+                            </div>
+                            <div class="tab-pane fade" id="maintain">
+                                <h4>Maintenance</h4>
+                                 <div class="row">
+                                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                      <label for="maintain_action">Action</label>
+                                      <select class="form-control" id="maintain_action">
+                                            <option value="maintain">Maintenance</option>
+                                            <option value="clean">Cleaning</option>
+                                            <option value="pos">POS Tagging</option>
+                                      </select>
+                                    </div>
+                                </div>
+                                <hr/>
+                                <div class="row">
+                                     {{ languages.languages('maintain',langs) }}
+                                </div>
+                                <hr/>
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                    {{ filters.filters('maintain', str_filters, date_filters, num_filters, query_filters) }}
+                                </div>
+                                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                        <a href="#" id="maintain_btn" class="btn btn-primary">Run</a>
+                                        </div>
+
+                            </div>
+                            <div class="tab-pane fade" id="tags">
+                                <h4>Tags</h4>
+                                <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <table id="tags_table" data-toggle="table"
+                                           data-sort-name="tag"
+                                           data-sort-order="asc"
+                                           data-pagination="true">
+                                        <thead>
+                                        <tr>
+                                            {% for header in tags_headers %}
+                                            <th data-field="{{header}}"
+                                                data-sortable="true"
+                                                >
+                                                    {{ header | upper }}
+                                            </th>
+                                            {% endfor %}
+                                        </tr>
+                                        </thead>
+                                    </table>
+                                    <a href="#" id="new_tag_btn" class="btn btn-primary">New</a>
+                                    {% include 'edit_tag.html' %}
+                                </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="stats">
+                                <h4>Stats</h4>
+                                <ul class="nav nav-tabs">
+                                    <li class="active"><a href="#stats_languages" data-toggle="tab">Languages</a>
+                                    </li>
+                                    <li><a href="#stats_domains" data-toggle="tab">Tags</a>
+                                    </li>
+                                    <li><a href="#stats_file_names" data-toggle="tab">File Names</a>
+                                    </li>
+
+                                </ul>
+                                <div class="tab-content">
+                                    <div class="tab-pane fade active in" id="stats_languages">
+                                         <div class="row">
+                                            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                                <table id="stats_table" data-toggle="table"
+                                                       data-sort-name="count"
+                                                       data-sort-order="desc"
+                                                       data-pagination="true">
+                                                    <thead>
+                                                    <tr>
+                                                        <th data-field="slang"
+                                                            data-sortable="true"
+                                                            data-searchable="true"
+                                                            data-formatter="flagFormatter">
+                                                                Source
+                                                        </th>
+                                                        <th data-field="tlang"
+                                                            data-sortable="true"
+                                                            data-searchable="true"
+                                                            data-formatter="flagFormatter">
+                                                                Target
+                                                        </th>
+                                                        <th data-field="count"
+                                                            data-sortable="true">
+                                                                # TUs
+                                                        </th>
+                                                        <th data-field="tag"
+                                                            data-sortable="true"
+                                                            data-formatter="stringListFormatter">
+                                                                Tags
+                                                        </th>
+                                                    </tr>
+                                                    </thead>
+                                                </table>
+                                            </div>
+                                         </div>
+                                        </div>
+                                    <div class="tab-pane fade" id="stats_domains">
+                                         <div class="row">
+                                            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                                <table id="stats_domain_table" data-toggle="table"
+                                                       data-sort-name="count"
+                                                       data-sort-order="desc"
+                                                       data-pagination="true">
+                                                    <thead>
+                                                    <tr>
+                                                        <th data-field="domain"
+                                                            data-sortable="true"
+                                                            data-searchable="true"
+                                                            >
+                                                                Tag
+                                                        </th>
+                                                        <th data-field="count"
+                                                            data-sortable="true">
+                                                                # TUs
+                                                        </th>
+                                                        <th data-field="lang_pairs"
+                                                            data-sortable="true"
+                                                            data-formatter="stringListFormatter">
+                                                                Language Pairs
+                                                        </th>
+                                                    </tr>
+                                                    </thead>
+                                                </table>
+                                            </div>
+                                         </div>
+                                        </div>
+                                    <div class="tab-pane fade" id="stats_file_names">
+                                         <div class="row">
+                                            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                                <table id="stats_file_name_table" data-toggle="table"
+                                                       data-sort-name="count"
+                                                       data-sort-order="desc"
+                                                       data-pagination="true">
+                                                    <thead>
+                                                    <tr>
+                                                        <th data-field="file_name"
+                                                            data-sortable="true"
+                                                            data-searchable="true"
+                                                            >
+                                                                File Name
+                                                        </th>
+                                                        <th data-field="count"
+                                                            data-sortable="true">
+                                                                # TUs
+                                                        </th>
+                                                        <th data-field="lang_pairs"
+                                                            data-sortable="true"
+                                                            data-formatter="stringListFormatter">
+                                                                Language Pairs
+                                                        </th>
+                                                    </tr>
+                                                    </thead>
+                                                </table>
+                                            </div>
+                                         </div>
+                                        </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                  </div>
+              </div>

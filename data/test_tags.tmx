@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tmx version="1.4">
+<header creationtool="TAUS Data Association"
+        creationtoolversion="3"
+        segtype="sentence"
+        o-tmf="various"
+        adminlang="en-US"
+        srclang="en-GB"
+        datatype="PlainText"
+        creationdate="20120216T102714Z" />
+<body>
+<tu usagecount="0" creationdate="20090922T162610Z" creationid="APIACCESS">
+<prop type="ID">Dish Care/ Dish Care (STE)</prop>
+<tuv xml:lang="EN-GB">
+<seg><bpt i="1">&lt;symbol&gt;</bpt>A<ept i="1">&lt;/symbol&gt;</ept>) with detergent.</seg>
+</tuv>
+<tuv xml:lang="ES-ES">
+<seg><bpt i="1">&lt;symbol&gt;</bpt>A<ept i="1">&lt;/symbol&gt;</ept>) con detergente.</seg>
+</tuv>
+</tu>
+<tu usagecount="0" creationdate="20090318T150930Z" creationid="27032" changedate="20090611T111923Z" changeid="MACSEND">
+<prop type="Project">FOOD PREPARATION, FOOD PRESERVATION</prop>
+<tuv xml:lang="EN-GB">
+<seg><ph> &lt;emphasis&gt;</ph>Fire danger!</seg>
+</tuv>
+<tuv xml:lang="ES-ES">
+<seg>Peligro de incendio</seg>
+</tuv>
+</tu>
+<tu usagecount="0" creationdate="20100713T180940Z" creationid="APIACCESS">
+<prop type="ID">Food Preparation/ Food preparation (STE)</prop>
+<tuv xml:lang="EN-GB">
+<seg><it pos="end">&lt;/emphasis&gt;</it> Overheated fats and oils can ignite very quickly.</seg>
+</tuv>
+<tuv xml:lang="ES-ES">
+<seg><it pos="end">&lt;/emphasis&gt;</it> Las grasas y los aceites sobrecalentados se encienden con facilidad</seg>
+</tuv>
+</tu>
+<tu usagecount="0" creationdate="20100713T180940Z" creationid="APIACCESS">
+<prop type="ID">Food Preparation/ Food preparation (STE)</prop>
+<tuv xml:lang="EN-GB">
+<seg>&lt;/emphasis&gt; Overheated fats and oils can ignite very quickly.</seg>
+</tuv>
+<tuv xml:lang="ES-ES">
+<seg>&lt;/emphasis&gt; Las grasas y los aceites sobrecalentados se encienden con facilidad</seg>
+</tuv>
+</tu>
+</body>
+</tmx>
+

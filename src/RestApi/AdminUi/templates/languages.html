@@ -1,0 +1,22 @@
+{% macro languages(name, langs) -%}
+    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+        <label for="{{name}}_source_lang">Source language</label>
+        <select class="form-control selectpicker" id="{{name}}_source_lang">
+          {% for lang in langs %}
+           <option data-content="<span class='flag-icon flag-icon-{{flag(lang)}} flag-icon-squared'></span>&nbsp;{{lang | upper}}">
+               {{lang | upper}}
+           </option>
+          {% endfor %}
+        </select>
+    </div>
+    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+        <label for="{{name}}_target_lang">Target language</label>
+        <select class="form-control selectpicker" id="{{name}}_target_lang">
+          {% for lang in langs %}
+           <option data-content="<span class='flag-icon flag-icon-{{flag(lang)}} flag-icon-squared'></span>&nbsp;{{lang | upper}}">
+               {{lang | upper}}
+           </option>
+          {% endfor %}
+        </select>
+    </div>
+{%- endmacro %}

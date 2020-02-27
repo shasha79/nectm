@@ -1,0 +1,16 @@
+[Unit]
+Description=Gunicorn instance to serve ActivaTM
+After=network.target
+PartOf=activatm.target
+
+[Service]
+User=pangeanic
+Group=www-data
+WorkingDirectory=/ssd/activatm/src/RestApi
+Environment="PATH=/ssd/activatm/venv/bin"
+ExecStart=/ssd/activatm/venv/bin/gunicorn --workers 4 --bind unix:activatm.sock -m 007 Api:app --log-file /var/log/activatm/gunicorn.log --log-level INFO
+
+[Install]
+WantedBy=multi-user.target
+WantedBy=activatm.target
+

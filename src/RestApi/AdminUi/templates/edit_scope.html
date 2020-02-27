@@ -1,0 +1,127 @@
+<!-- Modal -->
+<div id="scope_modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Edit User Scope</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal">
+        <fieldset>
+          <div class="form-group">
+          <label class="col-md-4 control-label" for="scope_username">User</label>
+          <div class="col-md-4">
+          <input readonly id="scope_username" name="scope_username" type="text" class="form-control input-md" required="true">
+          </div>
+        </div>
+
+
+        <!-- Text input-->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="scope_id">Scope Id</label>
+          <div class="col-md-4">
+          <input readonly id="scope_id" name="scope_id" type="text" placeholder="id" class="form-control input-md" required="true">
+          </div>
+        </div>
+
+          <!-- Text input-->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="lang_pairs">Language Pairs</label>
+          <div class="col-md-4">
+          <input id="lang_pairs" name="lang_pairs" type="text" placeholder="en_es,fr_de" class="form-control input-md" data-role="tagsinput">
+          </div>
+        </div>
+
+
+          <!-- Text input-->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="scope_tags">Tags</label>
+          <div class="col-md-4">
+           <!-- <input id="tags" name="tags" type="text" class="form-control input-md" data-role="tagsinput"> -->
+            <select multiple="multiple" id="scope_tags" name="{{filter}}" type="text" class="form-control"></select>
+          </div>
+        </div>
+
+          <!-- Number input-->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="usage_limit">Usage Limit</label>
+          <div class="col-md-4">
+          <input id="usage_limit" name="usage_limit" type="number" class="form-control input-md" >
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="usage_limit">Usage Count</label>
+          <div class="col-md-4">
+          <input readonly id="usage_count" name="usage_count" type="text" class="form-control input-md" >
+          </div>
+        </div>
+
+
+          <!-- Date input-->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="start_date">Start Date</label>
+          <div class="col-md-4">
+          <input id="start_date" data-provide="datepicker" name="start_date" placeholder="mm/dd/yyyy" class="form-control input-md">
+          </div>
+        </div>
+
+          <!-- Date input-->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="end_date">End Date</label>
+          <div class="col-md-4">
+          <input data-provide="datepicker" id="end_date" name="end_date" placeholder="mm/dd/yyyy" class="form-control input-md">
+          </div>
+        </div>
+
+
+        <!-- Multiple Checkboxes (inline) -->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="can_update">Can Update</label>
+          <div class="col-md-4">
+            <label class="checkbox-inline" for="can_update">
+              <input type="checkbox" name="can_update" id="can_update" value="True">
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="can_import">Can Import</label>
+          <div class="col-md-4">
+            <label class="checkbox-inline" for="can_import">
+              <input type="checkbox" name="can_import" id="can_import" value="False">
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="can_export">Can Export</label>
+          <div class="col-md-4">
+            <label class="checkbox-inline" for="can_export">
+              <input type="checkbox" name="can_export" id="can_export" value="False">
+            </label>
+          </div>
+        </div>
+
+
+        </fieldset>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <!-- Button (Double) -->
+        <div class="form-group">
+          <div class="col-md-8">
+            <button id="save_scope_btn" name="save_scope_btn" class="btn btn-success" data-dismiss="modal">Save</button>
+            <button id="delete_scope_btn" name="delete_scope_btn" class="btn btn-warning">Delete</button>
+            <button id="cancel_scope_btn" name="cancel_scope_btn" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+

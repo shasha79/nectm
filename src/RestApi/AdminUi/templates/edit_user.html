@@ -1,0 +1,88 @@
+<!-- Modal -->
+<div id="user_modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Edit User</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal">
+        <fieldset>
+
+        <!-- Text input-->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="user">User</label>
+          <div class="col-md-4">
+          <input id="user" name="user" type="text" placeholder="user" class="form-control input-md" required="true">
+          </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="role">Role</label>
+          <div class="col-md-4">
+            <select class="form-control" id="role">
+              <option>user</option>
+              <option>admin</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Password input-->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="password">Password</label>
+          <div class="col-md-4">
+            <input id="password" name="password" type="password" class="form-control input-md" required="">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="token_expires">Token expires</label>
+          <div class="col-md-4">
+            <label class="checkbox-inline" for="token_expires">
+              <input type="checkbox" name="token_expires" id="token_expires" value="True">
+              True
+            </label>
+          </div>
+        </div>
+
+
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="is_active">Is Active</label>
+          <div class="col-md-4">
+            <label class="checkbox-inline" for="is_active">
+              <input type="checkbox" name="is_active" id="is_active" value="True">
+              True
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group" id="scopes_group">
+          <label class="col-md-4 control-label">Scopes</label>
+          <div class="col-md-4">
+              <div id="scopes"></div>
+          </div>
+        </div>
+
+
+        </fieldset>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <!-- Button (Double) -->
+        <div class="form-group">
+          <label class="col-md-4 control-label"></label>
+          <div class="col-md-8">
+            <button id="save_user_btn" name="save_user_btn" class="btn btn-success">Save</button>
+            <button id="cancel_user_btn" name="cancel_user_btn" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+

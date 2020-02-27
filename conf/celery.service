@@ -1,0 +1,14 @@
+[Unit]
+Description=Celery instance to serve ActivaTM
+After=network.target
+
+[Service]
+User=pangeanic
+Group=pangeanic
+WorkingDirectory=/ssd/activatm/src/RestApi
+Environment="PATH=/ssd/activatm/venv/bin"
+ExecStart=/ssd/activatm/venv/bin/celery --app=Api.celery worker --loglevel=INFO --logfile=/var/log/activatm/celery-worker.log --workdir=/ssd/activatm/src/RestApi
+
+[Install]
+WantedBy=multi-user.target
+

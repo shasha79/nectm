@@ -1,0 +1,22 @@
+# Import TMX test - NOT WORKING
+---
+- config:
+    - testset: "ElasticTM API import TMX"
+# Include authentication step (using custom PyYAML loader), provides $token
+- test: !include auth.yml
+- test:
+    - name: "Import TMX file"
+    - variable_binds:
+       - params: 'domain=Test'
+       - file: '../data/un_short.tmx.import'
+
+    - url: {template : "/api/v1/tm/import?$params"}
+    - method: "PUT"
+    - body: {template: '{file: $file}'}
+    - headers: {template: {'Content-Type': 'multipart/form-data; boundary=------------------------4935875673ad6222', Authorization: 'JWT $token'}}
+    #- headers: {template: {Content-Type: multipart/form-data, Authorization: 'JWT $token'}}
+    - expected_status: [200]
+    - compare: {header: content-type, expected: 'application/json'}
+
+    - validators:
+      - extract_test: {jsonpath_mini: 'job_id', test: 'exists'}

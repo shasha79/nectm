@@ -1,0 +1,11 @@
+# Basic API test
+---
+- config:
+    - testset: "Basics of ElasticTM API"
+# Include authentication step (using custom PyYAML loader), provides $token
+- test: !include auth.yml
+- test:
+    - name: "Get stats"
+    - url: "/api/v1/tm/stats"
+    - headers: {template: {Content-Type: application/json, Authorization: 'JWT $token'}}
+    - expected_status: [200]

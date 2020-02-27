@@ -1,0 +1,10 @@
+# Language pair-specific script engine
+engines:
+    - source: any
+      target: any
+      domain: any
+      engine: bing
+
+bing:
+    key: bing_key
+

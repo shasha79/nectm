@@ -1,0 +1,19 @@
+# Query API test
+---
+- config:
+    - testset: "ElasticTM API query"
+# Include authentication step (using custom PyYAML loader), provides $token
+- test: !include auth.yml
+- test:
+    - name: "Query"
+    - variable_binds:
+       - params: 'slang=en&tlang=es&q=United+Nations'
+
+    - url: {template : "/api/v1/tm?$params"}
+    - headers: {template: {Authorization: 'JWT $token'}}
+    - expected_status: [200]
+    - compare: {header: content-type, expected: 'application/json'}
+
+    - validators:
+      - extract_test: {jsonpath_mini: 'results', test: 'exists'}
+

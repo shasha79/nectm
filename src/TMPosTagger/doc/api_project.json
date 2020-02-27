@@ -1,0 +1,14 @@
+{
+  "name": "ActivaTM Tools",
+  "version": "0.1.0",
+  "description": "Tools Documentation",
+  "url": "src/TMPosTagger",
+  "sampleUrl": false,
+  "apidoc": "0.2.0",
+  "generator": {
+    "name": "apidoc",
+    "time": "2017-02-21T16:50:48.365Z",
+    "url": "http://apidocjs.com",
+    "version": "0.12.3"
+  }
+}

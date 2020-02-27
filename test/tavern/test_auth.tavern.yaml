@@ -1,0 +1,33 @@
+# Authentication step included in all other calls
+test_name: JWT-based authorization
+
+stages:
+  - name: authenticate
+    request:
+      url: "{tavern.env_vars.TEST_URL}/api/v1/auth"
+      json:
+        username: "admin"
+        password: "RY0uVa04QEQ"
+      method: POST
+      headers:
+        content-type: application/json
+
+    response:
+      status_code: 200
+      body:
+        # Make sure a token exists
+        $ext:
+          function: tavern.testutils.helpers:validate_jwt
+          extra_kwargs:
+            jwt_key: "access_token"
+            options:
+              verify_signature: false
+      save:
+        # Saves a jwt token returned as 'token' in the body as 'jwt'
+        # in the test configuration for use in future tests
+        $ext:
+          function: tavern.testutils.helpers:validate_jwt
+          extra_kwargs:
+            jwt_key: "access_token"
+            options:
+              verify_signature: false

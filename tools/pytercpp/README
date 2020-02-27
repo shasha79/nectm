@@ -1,0 +1,10 @@
+Python binding for C++ TER calculation library
+
+1. Install by:
+python setup.py install
+
+2. Build & Install (needed if you need to recompile for new platform/new version)
+python setup.py build install
+
+Build dependency: Boost library, install by
+sudo apt-get install libboost-all-dev

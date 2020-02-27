@@ -1,0 +1,27 @@
+Source https://github.com/mesnilgr/is13
+modified by Liangyou Li, ADAPT Centre, DCU
+
+
+elmansentlstm.py
+	model definition
+
+elmansentlstm-forward.py
+	training new model
+	you need to prepared data, see data/README
+	
+	change data path in the script, then run:
+		python elmansentlstm-forward.py
+	It will create a fold elmansentlstm-forward
+	train a model based on default configurations
+	model will be saved in the folder
+
+elmansentlstm-predict.py
+	testing give a trained model
+
+data/README
+	data and preprocess scripts
+
+opentag-model/
+closetag-model/
+alltag-model
+	pre-trained models

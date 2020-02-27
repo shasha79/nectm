@@ -1,0 +1,63 @@
+test_name: Basic functionality
+
+includes:
+  - !include common.yaml
+
+
+stages:
+  - name: authenticate
+    request:
+      url: "{server_url:s}/api/v1/auth"
+      json:
+        username: "{username:s}"
+        password: "{password:s}"
+      method: POST
+      headers:
+        content-type: application/json
+
+    response:
+      status_code: 200
+      save:
+        body:
+          access_token: access_token
+ #---
+ #test_name: Basic stats
+ #stages:
+  - name: "Get stats"
+    request:
+      url: "{server_url:s}/api/v1/tm/stats"
+      headers:
+        content-type: application/json
+        Authorization: "JWT {access_token:s}"
+
+    response:
+      status_code: 200
+
+
+  - name: "Import TMX"
+    request:
+      url: "{server_url:s}/api/v1/tm/import"
+      method: PUT
+      params:
+        domain: "Test"
+      files:
+        file: "../../data/un_short.tmx"
+      headers:
+        Authorization: "JWT {access_token:s}"
+    response:
+      status_code: 200
+    skip: True
+
+  - name: "Export TMX"
+    request:
+      url: "{server_url:s}/api/v1/tm/export"
+      method: GET
+      stream: True
+      params:
+        slang: "en"
+        tlang: "es"
+        domain: "Test"
+      headers:
+        Authorization: "JWT {access_token:s}"
+    response:
+      status_code: 200

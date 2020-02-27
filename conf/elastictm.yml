@@ -1,0 +1,104 @@
+general:
+  log_path: /tmp/elastictm/
+  export_path: /tmp/elastictm/export
+elasticsearch:
+  host: localhost
+  port: 9200
+  # TODO: other settings (number of cores, memory limit etc.)
+
+spark:
+  path: /opt/spark-2.4.4-bin-hadoop2.7/
+  master_path: local[8]
+  segments_per_task: 10000
+
+query:
+    #Penalize match if segment doesn't belong to requested domain or it is a dirty segment
+    p_domain: 5
+    p_dirty: 5
+    # Token count to query elasticsearch
+    p_token_count: 50
+    # Align similar words
+    p_src_tgt_align: 0.25
+    wait_time_with_AT: 20 # Chinese tokenizer is very slow, then need more time
+    wait_time_without_AT: 10
+
+maintenance:
+    # Segments having 'dirty score' larger than this one are considered 'dirty'
+    dirty_threshold: 3
+    cleaning_rules:
+      # General rules (applied to all language pairs)
+      all:
+        # Example of generic pair rule
+        rule1:
+          score: 3
+          regex:
+           - source rule
+           - target rule
+
+        # Example of generic single-language pair rule
+        rule11:
+          score: 4
+          regex:
+           - source rule
+
+        langid:
+          score: 1
+          # Segments will be penalized if detected language has lower probability than
+          # this one
+          threshold: 0.8
+          type: langid
+
+        count_numbers:
+          score: 3
+          type: count
+          regex:
+           - "[0-9]+"
+           - "[0-9]+"
+
+        count_chars:
+          score: 5
+          type: count
+          diff: 200%
+          regex:
+           - "."
+           - "."
+
+        count_brackets:
+          score: 2
+          type: count
+          regex:
+           - "\\("
+           - "\\("
+
+
+      # Language pair-specific rule
+      en-es:
+        rule2:
+          score: 5
+          regex:
+           - English-specific rule
+           - Spanish specific rule
+
+      # Language specific rule
+      en:
+        rule22:
+          score: 5
+          regex:
+           - English-specific rule
+
+
+# Language pair-specific for split rules
+split:
+  en-es:
+    en: en_specific
+  es-en:
+    es: es_specific
+  en-any:
+    en: en_generic
+  ja-en:
+    ja: ja_specific_en
+  ja-any:
+    ja: ja_generic
+  any-any:
+    any: generic_geral
+

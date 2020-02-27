@@ -1,0 +1,33 @@
+            <div class="row" id="jobs_row" style="display:none;">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div id="spinner_jobs" style="display:none;">
+                        <img src="assets/img/spinner.gif" id="spinner_gif" title="Please wait a bit..." />
+                    </div>
+
+                    <table id="jobs_table" data-toggle="table"
+                           data-sort-name="submit_time"
+                           data-sort-order="desc"
+                           data-pagination="true">
+                        <thead>
+                        <tr>
+                            <th data-field="delete"></th>
+                            {% for header in jobs_headers %}
+                            <th data-field="{{header}}"
+                                data-sortable="true"
+                                {% if "_time" in header %}
+                                  data-formatter="dateFormatterTableFun"
+                                {% endif %}
+
+                            >
+
+                                {{ header | upper }}
+                            </th>
+                            {% endfor %}
+                        </tr>
+                        </thead>
+                    </table>
+
+                </div>
+                {% include 'job_params.html' %}
+
+            </div>

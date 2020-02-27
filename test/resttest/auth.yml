@@ -1,0 +1,10 @@
+# Authentication step included in all other calls
+- name: "Authenticate"
+- url: "/api/v1/auth"
+- method: "POST"
+- body: '{"username": "admin","password": "RY0uVa04QEQ"}'
+#- body: '{"username": "admin","password": "admin"}'
+- headers: {Content-Type: application/json}
+- expected_status: [200]
+- extract_binds:
+   - 'token': {'jsonpath_mini': 'access_token'}

@@ -1,0 +1,39 @@
+# User API test
+---
+- config:
+    - testset: "User create API"
+    - variable_binds:
+       - user: 'test'
+# Include authentication step (using custom PyYAML loader), provides $token
+- test: !include auth.yml
+- test:
+    - name: "Create user"
+    - variable_binds:
+       - params: 'role=user&password=test'
+
+    - url: {template : "/api/v1/users/$user?$params"}
+    - method: 'POST'
+    - headers: {template: {Authorization: 'JWT $token'}}
+    - expected_status: [200]
+
+- test:
+    - name: "User exists"
+    - url: {template : "/api/v1/users/$user"}
+    - method: 'GET'
+    - headers: {template: {Authorization: 'JWT $token'}}
+    - expected_status: [200]
+
+- test:
+    - name: "Delete user"
+    - url: {template : "/api/v1/users/$user"}
+    - method: 'DELETE'
+    - headers: {template: {Authorization: 'JWT $token'}}
+    - expected_status: [200]
+
+- test:
+    - name: "User doesn't exist"
+    - url: {template : "/api/v1/users/$user"}
+    - method: 'GET'
+    - headers: {template: {Authorization: 'JWT $token'}}
+    - expected_status: [404]
+

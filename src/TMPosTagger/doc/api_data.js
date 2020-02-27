@@ -1,0 +1,562 @@
+/*
+ * Copyright (c) 2020 Pangeanic SL.
+ *
+ * This file is part of NEC TM
+ * (see https://github.com/shasha79/nectm).
+ *
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+define({ "api": [
+  {
+    "type": "INFO",
+    "url": "/Settings",
+    "title": "Check -- Check ActivaTM files",
+    "name": "Check",
+    "version": "0.1.0",
+    "group": "Settings",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "examples": [
+      {
+        "title": "Example & Notes",
+        "content": "\n# Log files => /var/log/elastictm",
+        "type": "curl"
+      }
+    ],
+    "filename": "./several_commands.py",
+    "groupTitle": "Settings"
+  },
+  {
+    "type": "INFO",
+    "url": "/Settings",
+    "title": "Settings -- Update ActivaTM",
+    "name": "Update",
+    "version": "0.1.0",
+    "group": "Settings",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "examples": [
+      {
+        "title": "Example & Notes",
+        "content": "\n1- cd /opt/elasticTM\n2- sudo su -- su alexander\n3- download the code =>\tgit pull\n4- restart the service =>\tservice uwsgi restart",
+        "type": "curl"
+      }
+    ],
+    "filename": "./several_commands.py",
+    "groupTitle": "Settings"
+  },
+  {
+    "type": "INFO",
+    "url": "/TMPosTagger",
+    "title": "TMPosTagger -- Initializes the available POS Tagger models",
+    "name": "TMPostagger",
+    "version": "0.1.0",
+    "group": "TMPosTagger",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "language",
+            "description": "<p>sentences language.</p> "
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "Object",
+            "description": "<p>model for pos tagging annotation</p> "
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "type": "String",
+            "optional": false,
+            "field": "Unsupported",
+            "description": "<p>unsupported language for POS tagging. This messages appear on uwsgi.log</p> "
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "Example to include new pos tagging model for other languages:",
+        "content": "\n# Define the model for new language\ntools = {'EN' : 'treetagger',\n          'DE': 'multilingual',\n           'JA': 'Kytea'}\n# Create the class to execute the new model\nif tool == 'stanford':\n  self.tagger = TMStanfordPOSTagger(language.upper())\n# All the models must implement a function \"tag_segments(self, texts)\" to pos tagging.\n#Before pos tagging the input sentences are tokenized",
+        "type": "curl"
+      }
+    ],
+    "filename": "./TMPosTagger.py",
+    "groupTitle": "TMPosTagger"
+  },
+  {
+    "type": "INFO",
+    "url": "/TMRDRPOSTagger",
+    "title": "-- TMRDRPOSTagger Based on the universal tagset",
+    "name": "TMRDRPOSTagger",
+    "version": "0.1.0",
+    "group": "TMPosTagger",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "language",
+            "description": "<p>sentence language.</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "List",
+            "optional": false,
+            "field": "text",
+            "description": "<p>input Text. Receive a list of sentences.</p> "
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "List",
+            "optional": false,
+            "field": "tagged_segments",
+            "description": "<p>tagged segment as a list of pairs where each pair consists of a word and tag</p> "
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "Example & Notes",
+        "content": "\nInput => ['Gasoline, brake fluid, and coolant will damage the finish of painted and plastic surfaces:']\nOutput => [[['Gasoline', 'NOUN'], [',', 'PUNCT'], ['brake', 'NOUN'], ['fluid', 'NOUN'], [',', 'PUNCT'], ['and', 'CONJ'], ['coolant', 'NOUN'], ['will', 'AUX'],\n['damage', 'VERB'], ['the', 'DET'], ['finish', 'NOUN'], ['of', 'ADP'], ['painted', 'VERB'], ['and', 'CONJ'], ['plastic', 'ADJ'], ['surfaces', 'NOUN'], [':', 'PUNCT']]]\n\n#TMRDRPOSTagger directory is in tools/RDRPOSTagger",
+        "type": "curl"
+      }
+    ],
+    "filename": "./TMRDRPOSTagger.py",
+    "groupTitle": "TMPosTagger"
+  },
+  {
+    "type": "INFO",
+    "url": "/TMStanfordPOSTagger",
+    "title": "TMStanfordPOSTagger",
+    "name": "TMStanfordPOSTagger",
+    "version": "0.1.0",
+    "group": "TMPosTagger",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "language",
+            "description": "<p>sentence language.</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "List",
+            "optional": false,
+            "field": "text",
+            "description": "<p>Input Text. Receive a list of sentences.</p> "
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "List",
+            "optional": false,
+            "field": "tagged_segments",
+            "description": "<p>tagged segment as a list of pairs where each pair consists of a word and tag</p> "
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "Example & Notes",
+        "content": "\nInput => ['Gasoline, brake fluid, and coolant will damage the finish of painted and plastic surfaces:']\nOutput => [[['Gasoline', 'NN'], [',', ','], ['brake', 'NNP'], ['fluid', 'NN'], [',', ','], ['and', 'CC'], ['coolant', 'NN'], ['will', 'MD'], ['damage', 'VB'], ['the', 'DT'],\n['finish', 'NN'], ['of', 'IN'], ['painted', 'JJ'], ['and', 'CC'], ['plastic', 'JJ'], ['surfaces', 'NNS'], [':', ':']]]\n\n#StanfordPOSTagger directory is in tools/stanford-postagger-full-2015-12-09",
+        "type": "curl"
+      }
+    ],
+    "filename": "./TMStanfordPosTagger.py",
+    "groupTitle": "TMPosTagger"
+  },
+  {
+    "type": "INFO",
+    "url": "/TMTreeTagger",
+    "title": "TreeTagger",
+    "name": "TMTreeTagger",
+    "version": "0.1.0",
+    "group": "TMPosTagger",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "language",
+            "description": "<p>sentence language.</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "List",
+            "optional": false,
+            "field": "text",
+            "description": "<p>Input Text. Receive a list of sentences.</p> "
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "List",
+            "optional": false,
+            "field": "tagged_segments",
+            "description": "<p>tagged segment as a list of pairs where each pair consists of a word and tag</p> "
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "Example & Notes",
+        "content": "\nInput => ['Gasoline, brake fluid, and coolant will damage the finish of painted and plastic surfaces:']\nOutput => [[['Gasoline', 'NN'], [',', ','], ['brake', 'NN'], ['fluid', 'NN'], [',', ','], ['and', 'CC'], ['coolant', 'NN'], ['will', 'MD'], ['damage', 'VV'], ['the', 'DT'], ['finish', 'NN'], ['of', 'IN'], ['painted', 'JJ'], ['and', 'CC'], ['plastic', 'JJ'], ['surfaces', 'NNS'], [':', ':']]]\n\n\n#TreeTagger directory is in tools/tree-tagger-linux-3.2",
+        "type": "curl"
+      }
+    ],
+    "filename": "./TMTreeTagger.py",
+    "groupTitle": "TMPosTagger"
+  },
+  {
+    "type": "INFO",
+    "url": "/TMUniversalPosTag",
+    "title": "TMUniversalPosTag Convert -- POS tags from various treebanks to the universal tagset (Petrov, Das, & McDonald).",
+    "name": "TMUniversalPosTag",
+    "version": "0.1.0",
+    "group": "TMPosTagger",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "language",
+            "description": "<p>sentence language.</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "List",
+            "optional": false,
+            "field": "text",
+            "description": "<p>Input Text. Receive a list of tagged sentences.</p> "
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "List",
+            "optional": false,
+            "field": "tagged_segments",
+            "description": "<p>tagged segment as a list of pairs where each pair consists of a word and tag (universal tag set)</p> "
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "Example & Notes",
+        "content": "\n# Receive a list of pairs (word and tag), annotated by TreeTagger\nInput => [[['Gasoline', 'NN'], [',', ','], ['brake', 'NN'], ['fluid', 'NN'], [',', ','], ['and', 'CC'], ['coolant', 'NN'], ['will', 'MD'], ['damage', 'VV'],\n['the', 'DT'], ['finish', 'NN'], ['of', 'IN'], ['painted', 'JJ'], ['and', 'CC'], ['plastic', 'JJ'], ['surfaces', 'NNS'], [':', ':']]]\nOutput => [[['Gasoline', 'NOUN'], [',', 'PUNCT'], ['brake', 'NOUN'], ['fluid', 'NOUN'], [',', 'PUNCT'], ['and', 'CONJ'], ['coolant', 'NOUN'], ['will', 'AUX'],\n['damage', 'VERB'], ['the', 'DET'], ['finish', 'NOUN'], ['of', 'ADP'], ['painted', 'VERB'], ['and', 'CONJ'], ['plastic', 'ADJ'], ['surfaces', 'NOUN'], [':', 'PUNCT']]]\n\n# Currently, is available for English, Spanish, French and Japanese\n\n#TMRDRPOSTagger directory is in tools/universal-pos-tags-master\n\nConverting POS tags from various treebanks to the universal tagset of Petrov, Das, & McDonald.\n\nThe tagset consists of the following 12 coarse tags:\n\nVERB - verbs (all tenses and modes)\nNOUN - nouns (common and proper)\nPRON - pronouns\nADJ - adjectives\nADV - adverbs\nADP - adpositions (prepositions and postpositions)\nCONJ - conjunctions\nDET - determiners\nNUM - cardinal numbers\nPRT - particles or other function words\nX - other: foreign words, typos, abbreviations\n. - punctuation\n\n#@see: http://arxiv.org/abs/1104.2086 and http://code.google.com/p/universal-pos-tags/\n\nCode based on --> @author: Nathan Schneider (nschneid)",
+        "type": "curl"
+      }
+    ],
+    "filename": "./TMUniversalPosTag.py",
+    "groupTitle": "TMPosTagger"
+  },
+  {
+    "type": "INFO",
+    "url": "/TMStopWords",
+    "title": "TMStopWords -- Load list of stopwords for each languages",
+    "name": "TMStopWords",
+    "version": "0.1.0",
+    "group": "TMStopWords",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "language",
+            "description": "<p>sentences language.</p> "
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "List",
+            "optional": false,
+            "field": "stop_words",
+            "description": "<p>list of stopwords</p> "
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "Example & Notes",
+        "content": "\n# Dictionary with language and list of stopwords. Currently, we used the stopword list available in nltk.\n  st_dict = {'EN': stopwords.words('english'),\n          'ES': stopwords.words('spanish'),\n          'FR': stopwords.words('french'),\n          'DE': stopwords.words('german')}\n\n# To include new stopword list for specific language (external file)\n  1- Copy the file in tools/stop_words\n  2- Create a new entry in \"st_dict\" e.g. 'ZH': 'chinese'\n  3- Use the fuction \"load_stop_words(...)\" to load the external list\n     Put the following line on the class constructor => if st_list == 'chinese': st_list = self.load_stop_words('chinese')",
+        "type": "curl"
+      }
+    ],
+    "filename": "./TMStopWords.py",
+    "groupTitle": "TMStopWords"
+  },
+  {
+    "type": "INFO",
+    "url": "/TMPragmatic",
+    "title": "TMPragmatic -- Split sentences with punctation (\".\").",
+    "name": "TMPragmatic",
+    "version": "0.1.0",
+    "group": "TMTokenizer",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "language",
+            "description": "<p>sentences language.</p> "
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "List",
+            "optional": false,
+            "field": "split_sentence",
+            "description": "<p>List of sentences split by punctuation.</p> "
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "Example & Notes",
+        "content": "\n# Input: Hello world. My name is Mr. Smith. I work for the U.S. Government and I live in the U.S. I live in New York.\n# Output: ['Hello world.', 'My name is Mr. Smith.', 'I work for the U.S. Government and I live in the U.S.', 'I live in New York.']\n\n# The class execute a ruby command line to split the sentences\n\n# TMPragmatic diretory is in tools/pragmatic_segmenter-master/",
+        "type": "curl"
+      }
+    ],
+    "filename": "./TMTokenizer.py",
+    "groupTitle": "TMTokenizer"
+  },
+  {
+    "type": "INFO",
+    "url": "/TMTokenizer",
+    "title": "TMTokenizer -- Available Tokenizer models. This class initializes the available models",
+    "name": "TMTokenizer",
+    "version": "0.1.0",
+    "group": "TMTokenizer",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "language",
+            "description": "<p>sentences language.</p> "
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "Object",
+            "description": "<p>tokenizer model</p> "
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "type": "String",
+            "optional": false,
+            "field": "Unsupported",
+            "description": "<p>language for Tokenize. This messages appear on uwsgi.log</p> "
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "Example to include new tokenizer for other languages:",
+        "content": "\n# Define the model for new language\nmodels = {'EN': 'nltk',\n          'RU': 'generic',\n          'ZH': 'stanford',\n          'JA': 'kytea',\n# Create the class to execute the new model\n if self.tool == 'nltk':\n    self.tokenizer = TMNLTKTokenizer(language)\n# All the models must implement a function \"process(self, text)\" to split the sententes into individual words\n# and \"tokenize_sent(self, text)\" to split sentences with punctation (\".\").\n\n# List of available class and tokenizer tool\n# - TMMosesTokenizer => Moses (Not currently used)\n# - TMNLTKTokenizerGeneric => Based on regular expression to split into individual words and the TMPragmatic class to split into sentences.\n# - TMStanfordTokenizer => Stanfornd Tokenizer. Currently is used for chinese and arabic. It's very slow.\n# - TMNLTKTokenizer => NLTK",
+        "type": "curl"
+      }
+    ],
+    "filename": "./TMTokenizer.py",
+    "groupTitle": "TMTokenizer"
+  },
+  {
+    "type": "INFO",
+    "url": "/TMUNTokenizer",
+    "title": "TMUNTokenizer -- Initialize available Detokenizer models.",
+    "name": "TMUNTokenizer",
+    "version": "0.1.0",
+    "group": "TMTokenizer",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "language",
+            "description": "<p>sentences language.</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "List",
+            "optional": false,
+            "field": "list_word",
+            "description": "<p>List of words.</p> "
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "detokenize_sentences",
+            "description": "<p>Detokenizer sentence</p> "
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "Example & Notes",
+        "content": "\n# Currently, we used  \"en\" rules to detokenizer several language\n# We only use specific rules to detokenizer english, japanese, italian and czench",
+        "type": "curl"
+      }
+    ],
+    "filename": "./TMTokenizer.py",
+    "groupTitle": "TMTokenizer"
+  }
+] });

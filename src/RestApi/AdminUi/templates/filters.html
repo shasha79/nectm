@@ -1,0 +1,80 @@
+{% macro filters(name, str_filters, date_filters, num_filters, query_filters) -%}
+    <div class="panel-group" id="{{name}}_accordion">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#{{name}}_accordion" href="#{{name}}_collapseOne" class="show">Filter by...</a>
+                </h4>
+            </div>
+            <div id="{{name}}_collapseOne" class="panel-collapse collapse" style="height: 0px;">
+                <div class="panel-body col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                    <div>
+                    <br><label>TAG</label>
+                    <select multiple="multiple" id="{{name}}_filter_tag" name="tag" type="text" class="form-control">
+                    </select><br><br>
+                    </div>
+                    <h5 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#{{name}}_collapseOne" href="#{{name}}_collapseOneStrings" class="collapsed">Fields</a>
+                    </h5>
+                    <div id="{{name}}_collapseOneStrings" class="panel-collapse collapse" style="height: 0px;padding-left: 10%">
+                        {% for filter in str_filters %}
+                           <!-- <input id="{{name}}_filter_{{filter}}" name="{{filter}}" type="text" class="form-control"  data-role="tagsinput"/> -->
+                            {% if filter != "tag" %}
+                                <br><label>{{filter | upper}}</label>
+                                <select multiple id="{{name}}_filter_{{filter}}" name="{{filter}}" type="text" class="form-control"  data-role="tagsinput">
+                             </select>
+                            {% endif %}
+                            <br>
+                        {% endfor %}
+                        {% for nfilter in num_filters %}
+                            <br><label>{{nfilter | upper}}<label>
+                            <label>From</label><br>
+                            <input type="number" id="{{name}}_filter_{{nfilter}}_from" name="{{nfilter}}.from" class="form-control"  />
+                            <label>To</label><br>
+                            <input type="number" id="{{name}}_filter_{{nfilter}}_to" name="{{nfilter}}.to" class="form-control"  /><br>
+                        {% endfor %}
+
+                    </div>
+                    <br>
+                    {% if query_filters is defined %}
+                    <h5 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#{{name}}_collapseOne" href="#{{name}}_collapseOneQueries" class="collapsed">Queries</a>
+                    </h5>
+                    <div id="{{name}}_collapseOneQueries" class="panel-collapse collapse" style="height: 0px;;padding-left: 10%">
+                        {% for qfilter in query_filters %}
+                            <br><label>{{qfilter | upper}}</label><br>
+                           <!-- <input id="{{name}}_filter_{{filter}}" name="{{filter}}" type="text" class="form-control"  data-role="tagsinput"/> -->
+                            <input id="{{name}}_filter_{{qfilter}}" name="{{qfilter}}" type="text" class="form-control" />
+                        {% endfor %}
+                    </div>
+                    <br>
+                    {% endif %}
+                    <h5 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#{{name}}_collapseOne" href="#{{name}}_collapseOneDates" class="collapsed">Dates</a>
+                    </h5>
+                    <div id="{{name}}_collapseOneDates" class="panel-collapse collapse" style="height: 0px;padding-left: 10%">
+                        {% for filter in date_filters %}
+                            <br><label>{{filter | upper}}<label>
+                            <label>From</label><br>
+                            <input data-provide="datepicker" placeholder="mm/dd/yyyy" id="{{name}}_filter_{{filter}}_from" name="{{filter}}.from" class="form-control"  />
+                            <label>To</label><br>
+                            <input data-provide="datepicker" placeholder="mm/dd/yyyy" id="{{name}}_filter_{{filter}}_to" name="{{filter}}.to" class="form-control"  /><br>
+                        {% endfor %}
+                    </div>
+                    {% if query_filters is defined %}
+                    <br>
+                    <h5 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#{{name}}_collapseOne" href="#{{name}}_collapseOneOther" class="collapsed">Other</a>
+                    </h5>
+                    <div id="{{name}}_collapseOneOther" class="panel-collapse collapse" style="height: 0px;;padding-left: 10%">
+                            <label>Duplicates only</label><br>
+                            <input id="{{name}}_filter_duplicates_only" name="duplicates_only" type="checkbox" class="form-control"/><br>
+                    </div>
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+{%- endmacro %}

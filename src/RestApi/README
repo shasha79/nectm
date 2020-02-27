@@ -1,0 +1,3 @@
+Generate documentation by running:
+
+apidoc -i . -o ../doc

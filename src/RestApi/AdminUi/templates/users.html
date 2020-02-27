@@ -1,0 +1,84 @@
+            <div class="row" id="users_row" style="display:none;">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div id="spinner_users" style="display:none;">
+                        <img src="assets/img/spinner.gif" id="spinner_gif" title="Please wait a bit..." />
+                    </div>
+
+                    <ul class="nav nav-tabs">
+                                    <li class="active"><a href="#users_tab" data-toggle="tab">Users</a>
+                                    </li>
+                                    <li><a href="#stats_usage" data-toggle="tab">Usage</a>
+                                    </li>
+
+                                </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane fade active in" id="users_tab">
+                             <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <table id="users_table" data-toggle="table"
+                                           data-sort-name="count"
+                                           data-sort-order="desc"
+                                           data-pagination="true">
+                                        <thead>
+                                        <tr>
+                                            <th data-field="delete"></th>
+                                            {% for header in users_headers %}
+                                            <th data-field="{{header[0]}}"
+                                                data-sortable="true"
+                                                data-editable="{{header[1] | lower}}"
+                                                >
+                                                    {{ header[0] | upper }}
+                                            </th>
+                                            {% endfor %}
+                                        </tr>
+                                        </thead>
+                                     </table>
+                    <span class="input-group-btn">
+                        <a href="#" id="save_users_btn" class="btn btn-primary" disabled="disabled">Save</a>
+                        <a href="#" id="new_users_btn" class="btn btn-primary">New</a>
+                    </span>
+                    {% include 'edit_user.html' %}
+                    {% include 'edit_scope.html' %}
+
+
+                                            </div>
+                                         </div>
+                                        </div>
+                        <div class="tab-pane fade" id="stats_usage">
+                            <div class="row col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="btn-group" data-toggle="buttons">
+                                  <label class="btn btn-primary active">
+                                    <input type="radio" name="mt_options" id="mt_all" autocomplete="off" value="all" checked>All
+                                  </label>
+                                  <label class="btn btn-primary">
+                                    <input type="radio" name="mt_options" id="mt_only" autocomplete="off" value="mt_true"> MT
+                                  </label>
+                                  <label class="btn btn-primary">
+                                    <input type="radio" name="mt_options" id="mt_none" autocomplete="off" value="mt_false"> Non MT
+                                  </label>
+                            </div>
+                            </div>
+                             <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <table id="stats_usage_table" data-toggle="table"
+                                           data-sort-name="total"
+                                           data-sort-order="desc"
+                                           data-pagination="true">
+                                        <thead>
+                                        <tr>
+                                            {% for header in usage_headers %}
+                                            <th data-field="{{header}}"
+                                                data-sortable="true"
+                                                >
+                                                    {{ header | upper }}
+                                            </th>
+                                            {% endfor %}
+                                        </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>

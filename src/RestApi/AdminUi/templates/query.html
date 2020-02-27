@@ -1,0 +1,28 @@
+{% macro query(name) -%}
+    <div class="panel-group" id="{{name}}_accordion">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#{{name}}_accordion" href="#{{name}}_collapseOne" class="collapsed">Options</a>
+                </h4>
+            </div>
+            <div id="{{name}}_collapseOne" class="panel-collapse collapse" style="height: 0px;">
+                <div class="panel-body col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                            <label>Minimal match</label><br>
+                            <input id="{{name}}_min_match" name="min_match" type="text" class="form-control"/><br>
+
+                            <label>Use machine translation</label><br>
+                            <input id="{{name}}_aut_trans" name="aut_trans" type="checkbox" class="form-control"/><br>
+
+                            <label>Concordance</label><br>
+                            <input id="{{name}}_concordance" name="concordance" type="checkbox" class="form-control"/><br>
+
+                            <label>Strip tags</label><br>
+                            <input id="{{name}}_strip_tags" name="strip_tags" type="checkbox" class="form-control"/><br>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+{%- endmacro %}
