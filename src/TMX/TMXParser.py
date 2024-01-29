@@ -74,7 +74,7 @@ class TMXParser():
       self.tmx_fname = os.path.basename(tmx_fname)
       if self.tmx_fname:
         tmx_file = zip.open(tmx_fname) if zip else open(tmx_fname, mode="rb")
-        context = etree.iterparse(tmx_file, events=('end',), tag='tu')  #, dtd_validation=True, load_dtd=False remove_comments = True, remove_blank_text = True, no_network = True
+        context = etree.iterparse(tmx_file, events=('end',), tag='tu', resolve_entities=False)  #, dtd_validation=True, load_dtd=False remove_comments = True, remove_blank_text = True, no_network = True
         try:
           i = 0
           for segment in self._iterate(context): # If found any invalid part in xml, stop the process

@@ -624,10 +624,19 @@ class TmImportResource(TmResource):
                         )
 
     args =  parser.parse_args()
+   
+    # Verify input file name extension and sanitize file name
+    permitted_exts = ('.zip', '.tmx')
+    if not args.file.filename.endswith(permitted_exts):
+      abort(400, message=f"File name should end with one of these extensions: {permitted_suffixes}")
+    secure_fname =  werkzeug.utils.secure_filename(args.file.filename) 
+    if not secure_fname:
+      abort(400, message=f"Invalid input file name: {args.file.filename}")
+      
     # Store file in a local tmp dir
     tmp_dir = tempfile.mkdtemp(prefix='elastictm')
     os.chmod(tmp_dir, 0o755)
-    args.full_path = os.path.join(tmp_dir, args.file.filename)
+    args.full_path = os.path.join(tmp_dir, secure_fname)
     args.file.save(args.full_path)
     # Validate language pairs
     for lp in args.lang_pair:
